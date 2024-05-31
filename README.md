@@ -39,32 +39,145 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Running the JSON Server Locally
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To create a JSON API for the mock server, we'll use JSON Server to simulate the backend with the required data. This setup will help you develop and test the sales agent dashboard efficiently.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Data Structure
 
-### Code Splitting
+The data is organized into the following sections:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. **Collections**
+2. **Sign-ups**
+3. **Total Revenue**
+4. **Bounced Cheques**
+5. **Schools**
+6. **Invoices**
+7. **School Collections**
 
-### Analyzing the Bundle Size
+### Steps to Set Up JSON Server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Follow these steps to set up and run the JSON Server locally:
 
-### Making a Progressive Web App
+1. **Install JSON Server:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+   First, install JSON Server globally on your machine using npm. Open your terminal and run:
 
-### Advanced Configuration
+   ```bash
+   npm install -g json-server
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+2. **Create a `db.json` File:**
 
-### Deployment
+   Create a file named `db.json` in your project directory and paste the JSON data structure into this file.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+3. **Run JSON Server:**
 
-### `npm run build` fails to minify
+   Start the JSON Server by running the following command in your terminal:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+   ```bash
+   json-server --watch db.json --port 4000
+   ```
+
+   This command starts a mock API server at `http://localhost:4000` with the specified endpoints.
+
+### Available Endpoints
+
+Once the server is running, you can access the following endpoints to interact with the mock data:
+
+- **Collections:**
+  - `GET /collections`
+  - `GET /collections/:id`
+  - `POST /collections`
+  - `PUT /collections/:id`
+  - `PATCH /collections/:id`
+  - `DELETE /collections/:id`
+
+- **Sign-ups:**
+  - `GET /signUps`
+  - `GET /signUps/:id`
+  - `POST /signUps`
+  - `PUT /signUps/:id`
+  - `PATCH /signUps/:id`
+  - `DELETE /signUps/:id`
+
+- **Total Revenue:**
+  - `GET /totalRevenue`
+  - `GET /totalRevenue/:id`
+  - `POST /totalRevenue`
+  - `PUT /totalRevenue/:id`
+  - `PATCH /totalRevenue/:id`
+  - `DELETE /totalRevenue/:id`
+
+- **Bounced Cheques:**
+  - `GET /bouncedCheques`
+  - `GET /bouncedCheques/:id`
+  - `POST /bouncedCheques`
+  - `PUT /bouncedCheques/:id`
+  - `PATCH /bouncedCheques/:id`
+  - `DELETE /bouncedCheques/:id`
+
+- **Schools:**
+  - `GET /schools`
+  - `GET /schools/:id`
+  - `POST /schools`
+  - `PUT /schools/:id`
+  - `PATCH /schools/:id`
+  - `DELETE /schools/:id`
+
+- **Invoices:**
+  - `GET /invoices`
+  - `GET /invoices/:id`
+  - `POST /invoices`
+  - `PUT /invoices/:id`
+  - `PATCH /invoices/:id`
+  - `DELETE /invoices/:id`
+
+- **School Collections:**
+  - `GET /schoolCollections`
+  - `GET /schoolCollections/:id`
+  - `POST /schoolCollections`
+  - `PUT /schoolCollections/:id`
+  - `PATCH /schoolCollections/:id`
+  - `DELETE /schoolCollections/:id`
+
+### Endpoint Examples
+
+Here are some examples of how to use the endpoints:
+
+- **Get All Schools:**
+
+  ```http
+  GET /schools
+  ```
+
+  This endpoint retrieves a list of all schools.
+
+- **Get Specific School:**
+
+  ```http
+  GET /schools/1
+  ```
+
+  This endpoint retrieves the details of the school with ID 1.
+
+- **Create New Invoice:**
+
+  ```http
+  POST /invoices
+  ```
+
+  To create a new invoice, send a POST request with the invoice details in the request body.
+
+- **Update Collection Status:**
+
+  ```http
+  PATCH /schoolCollections/1
+  ```
+
+  To update the status of a specific collection, send a PATCH request with the updated status in the request body.
+
+This setup provides a comprehensive mock API to support the development and testing of the sales agent dashboard. Enjoy building your application!.
+
+- **Developed by:**
+  [Lewis Mwendwa Kathembe](https://www.linkedin.com/in/lewis-mwendwa-3a2581244/)

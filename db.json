@@ -1,0 +1,229 @@
+
+{
+    "collections": [
+        {
+            "id": 1,
+            "amount": 5000,
+            "date": "2023-05-10",
+            "schoolId": 1,
+            "status": "valid"
+        },
+        {
+            "id": 2,
+            "amount": 7000,
+            "date": "2023-05-12",
+            "schoolId": 2,
+            "status": "bounced"
+        },
+        {
+            "id": 3,
+            "amount": 6000,
+            "date": "2023-06-15",
+            "schoolId": 3,
+            "status": "valid"
+        },
+        {
+            "id": 4,
+            "amount": 4500,
+            "date": "2023-07-20",
+            "schoolId": 4,
+            "status": "bounced"
+        }
+    ],
+    "signUps": [
+        {
+            "id": 1,
+            "product": "Zeraki Analytics",
+            "schoolId": 1,
+            "date": "2023-01-15"
+        },
+        {
+            "id": 2,
+            "product": "Zeraki Finance",
+            "schoolId": 2,
+            "date": "2023-02-20"
+        },
+        {
+            "id": 3,
+            "product": "Zeraki Timetable",
+            "schoolId": 3,
+            "date": "2023-03-25"
+        },
+        {
+            "id": 4,
+            "product": "Zeraki Analytics",
+            "schoolId": 4,
+            "date": "2023-04-30"
+        }
+    ],
+    "totalRevenue": [
+        {
+            "id": 1,
+            "product": "Zeraki Analytics",
+            "amount": 12000
+        },
+        {
+            "id": 2,
+            "product": "Zeraki Finance",
+            "amount": 8000
+        },
+        {
+            "id": 3,
+            "product": "Zeraki Timetable",
+            "amount": 10000
+        },
+        {
+            "id": 4,
+            "product": "Zeraki Analytics",
+            "amount": 15000
+        }
+    ],
+    "bouncedCheques": [
+        {
+            "id": 1,
+            "schoolId": 2,
+            "amount": 7000,
+            "date": "2023-05-12"
+        },
+        {
+            "id": 2,
+            "schoolId": 4,
+            "amount": 4500,
+            "date": "2023-07-20"
+        }
+    ],
+    "schools": [
+        {
+            "id": 1,
+            "name": "Greenwood High",
+            "type": "Secondary",
+            "products": ["Zeraki Analytics", "Zeraki Timetable"],
+            "county": "Nairobi",
+            "registrationDate": "2022-09-01",
+            "contactInformation": "contact@greenwoodhigh.edu",
+            "balance": 3000
+        },
+        {
+            "id": 2,
+            "name": "Bluebell Primary",
+            "type": "Primary",
+            "products": ["Zeraki Finance"],
+            "county": "Mombasa",
+            "registrationDate": "2021-05-12",
+            "contactInformation": "contact@bluebellprimary.edu",
+            "balance": 0
+        },
+        {
+            "id": 3,
+            "name": "Hillside School",
+            "type": "Secondary",
+            "products": ["Zeraki Timetable"],
+            "county": "Kisumu",
+            "registrationDate": "2023-02-15",
+            "contactInformation": "contact@hillsideschool.edu",
+            "balance": 2000
+        },
+        {
+            "id": 4,
+            "name": "Sunshine Academy",
+            "type": "Primary",
+            "products": ["Zeraki Analytics"],
+            "county": "Nakuru",
+            "registrationDate": "2022-11-10",
+            "contactInformation": "contact@sunshineacademy.edu",
+            "balance": 4500
+        }
+    ],
+    "invoices": [
+        {
+            "id": 1,
+            "schoolId": 1,
+            "invoiceNumber": "INV-001",
+            "item": "Zeraki Analytics",
+            "creationDate": "2023-03-01",
+            "dueDate": "2023-04-01",
+            "amount": 5000,
+            "paidAmount": 2000,
+            "balance": 3000,
+            "status": "pending",
+            "daysUntilDue": 30
+        },
+        {
+            "id": 2,
+            "schoolId": 2,
+            "invoiceNumber": "INV-002",
+            "item": "Zeraki Finance",
+            "creationDate": "2023-02-01",
+            "dueDate": "2023-03-01",
+            "amount": 7000,
+            "paidAmount": 7000,
+            "balance": 0,
+            "status": "completed",
+            "daysUntilDue": 0
+        },
+        {
+            "id": 3,
+            "schoolId": 3,
+            "invoiceNumber": "INV-003",
+            "item": "Zeraki Timetable",
+            "creationDate": "2023-04-05",
+            "dueDate": "2023-05-05",
+            "amount": 6000,
+            "paidAmount": 4000,
+            "balance": 2000,
+            "status": "pending",
+            "daysUntilDue": 30
+        },
+        {
+            "id": 4,
+            "schoolId": 4,
+            "invoiceNumber": "INV-004",
+            "item": "Zeraki Analytics",
+            "creationDate": "2023-05-10",
+            "dueDate": "2023-06-10",
+            "amount": 4500,
+            "paidAmount": 0,
+            "balance": 4500,
+            "status": "overdue",
+            "daysUntilDue": -10
+        }
+    ],
+    "schoolCollections": [
+        {
+            "id": 1,
+            "schoolId": 1,
+            "invoiceId": 1,
+            "collectionNumber": "COL-001",
+            "date": "2023-03-10",
+            "status": "valid",
+            "amount": 2000
+        },
+        {
+            "id": 2,
+            "schoolId": 2,
+            "invoiceId": 2,
+            "collectionNumber": "COL-002",
+            "date": "2023-02-15",
+            "status": "bounced",
+            "amount": 7000
+        },
+        {
+            "id": 3,
+            "schoolId": 3,
+            "invoiceId": 3,
+            "collectionNumber": "COL-003",
+            "date": "2023-04-25",
+            "status": "valid",
+            "amount": 4000
+        },
+        {
+            "id": 4,
+            "schoolId": 4,
+            "invoiceId": 4,
+            "collectionNumber": "COL-004",
+            "date": "2023-05-20",
+            "status": "bounced",
+            "amount": 4500
+        }
+    ]
+}
