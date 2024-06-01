@@ -1,17 +1,28 @@
-// import logo from './logo.svg';\
-import React from 'react';
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavbarMenu from './components/NavbarMenu';
+import Dashboard from './components/Dashboard';
+import Schools from './components/Schools';
 import './App.css';
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false); // Add menuOpen state
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <NavbarMenu />
-      </header>
-    </div>
+    <Router>
+      <div className={`App ${menuOpen ? 'menu-open' : ''}`}> {/* Adjust class based on menuOpen state */}
+        <header className="App-header">
+          <NavbarMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} /> {/* Pass menuOpen state and setMenuOpen function */}
+          {/* Define routes for Dashboard and Schools */}
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/schools" element={<Schools />} />
+          </Routes>
+        </header>
+      </div>
+    </Router>
   );
 }
 
 export default App;
+

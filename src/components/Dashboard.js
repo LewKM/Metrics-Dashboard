@@ -1,222 +1,141 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap';
-import { PieChart, Pie, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
-import './Dashboard.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
 
 const Dashboard = () => {
-const [data, setData] = useState(null);
+    // const [schools, setSchools] = useState([]);
+    const [collections, setCollections] = useState(0);
+    const [signups, setSignups] = useState({
+        total: 0,
+        breakdown: {
+            Analytics: 0,
+            Finance: 0,
+            Timetable: 0
+        }
+    });
+    const [revenue, setRevenue] = useState({
+        total: 0,
+        breakdown: {
+            Analytics: 0,
+            Finance: 0,
+            Timetable: 0
+        }
+    });
+    const [bouncedCheques, setBouncedCheques] = useState(0);
+    const [upcomingInvoices, setUpcomingInvoices] = useState([]);
 
-useEffect(() => {
-    // Fetch data from JSON db
-    fetch('/path-to-your-json-db')
-    .then(response => response.json())
-    .then(data => setData(data))
-    .catch(error => console.error('Error fetching data:', error));
-}, []);
+    useEffect(() => {
+        const fetchDashboardData = async () => {
+            try {
 
-if (!data) return <div>Loading...</div>;
+                const responseCollections = await axios.get('http://localhost:4000/collections');
+                setCollections(responseCollections.data.total);
 
-// Extract data for different sections
-const { collections, signUps, totalRevenue, bouncedCheques, invoices } = data;
+                const responseSignups = await axios.get('http://localhost:4000/signups');
+                setSignups(responseSignups.data);
 
-// Colors for charts
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+                const responseRevenue = await axios.get('http://localhost:4000/revenue');
+                setRevenue(responseRevenue.data);
 
-// Calculate metrics
-const totalCollections = collections.filter(c => c.status === 'valid').length;
-const totalSignups = signUps.length;
-const totalRevenueAmount = totalRevenue.reduce((acc, item) => acc + item.amount, 0);
-const totalBouncedCheques = bouncedCheques.length;
+                const responseBouncedCheques = await axios.get('http://localhost:4000/bouncedCheques');
+                setBouncedCheques(responseBouncedCheques.data.total);
 
-// Group signups by product
-const signupsByProduct = signUps.reduce((acc, signup) => {
-    acc[signup.product] = (acc[signup.product] || 0) + 1;
-    return acc;
-}, {});
+                const responseUpcomingInvoices = await axios.get('http://localhost:4000/upcomingInvoices');
+                setUpcomingInvoices(responseUpcomingInvoices.data);
+            } catch (error) {
+                console.error('Error fetching dashboard data:', error);
+            }
+        };
 
-// Group revenue by product
-const revenueByProduct = totalRevenue.reduce((acc, revenue) => {
-    acc[revenue.product] = (acc[revenue.product] || 0) + revenue.amount;
-    return acc;
-}, {});
+        fetchDashboardData();
+    }, []);
 
-// Group signups by school type and product
-const signupsBySchoolType = signUps.reduce((acc, signup) => {
-    const school = data.schools.find(school => school.id === signup.schoolId);
-    if (school) {
-    acc[signup.product] = acc[signup.product] || {};
-    acc[signup.product][school.type] = (acc[signup.product][school.type] || 0) + 1;
-    }
-    return acc;
-}, {});
-
-const signupBarData = Object.entries(signupsBySchoolType).map(([product, types]) => {
-    return {
-    product,
-    Primary: types.Primary || 0,
-    Secondary: types.Secondary || 0,
-    IGCSE: types.IGCSE || 0
-    };
-});
-
-// Calculate targets for pie charts
-const targets = [
-    { product: 'Zeraki Analytics', target: 50, achieved: signupsByProduct['Zeraki Analytics'] || 0 },
-    { product: 'Zeraki Finance', target: 50, achieved: signupsByProduct['Zeraki Finance'] || 0 },
-    { product: 'Zeraki Timetable', target: 50, achieved: signupsByProduct['Zeraki Timetable'] || 0 }
-];
-
-return (
-    <Container fluid>
-    <Row className="mb-4">
-        <Col>
-        <h1>Sales Agent Dashboard</h1>
-        </Col>
-    </Row>
-
-    {/* Top Card Metrics */}
-    <Row className="mb-4">
-        <Col md={3}>
-        <Card>
-            <Card.Body>
-            <Card.Title>Collections</Card.Title>
-            <Card.Text>{totalCollections}</Card.Text>
-            </Card.Body>
-        </Card>
-        </Col>
-        <Col md={3}>
-        <Card>
-            <Card.Body>
-            <Card.Title>Sign-ups</Card.Title>
-            <Card.Text>{totalSignups}</Card.Text>
-            <ListGroup variant="flush">
-                {Object.entries(signupsByProduct).map(([product, count]) => (
-                <ListGroup.Item key={product}>{product}: {count}</ListGroup.Item>
-                ))}
-            </ListGroup>
-            </Card.Body>
-        </Card>
-        </Col>
-        <Col md={3}>
-        <Card>
-            <Card.Body>
-            <Card.Title>Total Revenue</Card.Title>
-            <Card.Text>${totalRevenueAmount}</Card.Text>
-            <ListGroup variant="flush">
-                {Object.entries(revenueByProduct).map(([product, amount]) => (
-                <ListGroup.Item key={product}>{product}: ${amount}</ListGroup.Item>
-                ))}
-            </ListGroup>
-            </Card.Body>
-        </Card>
-        </Col>
-        <Col md={3}>
-        <Card>
-            <Card.Body>
-            <Card.Title>Bounced Cheques</Card.Title>
-            <Card.Text>{totalBouncedCheques}</Card.Text>
-            </Card.Body>
-        </Card>
-        </Col>
-    </Row>
-
-    {/* Targets Visualization */}
-    <Row className="mb-4">
-        {targets.map(target => (
-        <Col md={4} key={target.product}>
-            <Card>
-            <Card.Body>
-                <Card.Title>{target.product} Signups</Card.Title>
-                <PieChart width={400} height={400}>
-                <Pie
-                    data={[
-                    { name: 'Target Achieved', value: target.achieved },
-                    { name: 'Target Remaining', value: target.target - target.achieved }
-                    ]}
-                    cx={200}
-                    cy={200}
-                    labelLine={false}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                >
-                    {[
-                    { name: 'Target Achieved', value: target.achieved },
-                    { name: 'Target Remaining', value: target.target - target.achieved }
-                    ].map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                </Pie>
-                <Tooltip />
-                </PieChart>
-            </Card.Body>
-            </Card>
-        </Col>
-        ))}
-    </Row>
-
-    {/* Signups Overview */}
-    <Row className="mb-4">
-        {signupBarData.map(productData => (
-        <Col md={4} key={productData.product}>
-            <Card>
-            <Card.Body>
-                <Card.Title>{productData.product} Signups</Card.Title>
-                <BarChart
-                width={400}
-                height={300}
-                data={[productData]}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="product" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="Primary" fill="#8884d8" />
-                <Bar dataKey="Secondary" fill="#82ca9d" />
-                <Bar dataKey="IGCSE" fill="#ffc658" />
-                </BarChart>
-            </Card.Body>
-            </Card>
-        </Col>
-        ))}
-    </Row>
-
-    {/* Upcoming Invoices */}
-    <Row className="mb-4">
-        <Col>
-        <Card>
-            <Card.Body>
-            <Card.Title>Upcoming Invoices</Card.Title>
-            <ListGroup variant="flush">
-                {invoices.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).map(invoice => {
-                const school = data.schools.find(school => school.id === invoice.schoolId);
-                return (
-                    <ListGroup.Item key={invoice.id}>
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div>
-                        <strong>{school.name}</strong>
-                        <div>Amount Due: ${invoice.amount}</div>
-                        <div>Due Date: {invoice.dueDate}</div>
-                        </div>
-                        <Button variant="primary" onClick={() => handleCollectPayment(invoice)}>Collect Payment</Button>
-                    </div>
-                    </ListGroup.Item>
-                );
-                })}
-            </ListGroup>
-            </Card.Body>
-        </Card>
-        </Col>
-    </Row>
-    </Container>
-);
-};
-
-const handleCollectPayment = (invoice) => {
-// Handle payment collection logic here
-alert(`Collecting payment for invoice: ${invoice.id}`);
+    return (
+        <Container style={{ marginTop: '50px' }}>
+            <h1>Schools</h1>
+            <Row>
+                <Col md={3}>
+                    <Card>
+                        <Card.Body>
+                            <Card.Title>Collections</Card.Title>
+                            <Card.Text>{collections}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col md={3}>
+                    <Card>
+                        <Card.Body>
+                            <Card.Title>Sign-ups</Card.Title>
+                            <Card.Text>Total: {signups.total}</Card.Text>
+                            <Card.Text>Analytics: {signups.breakdown.Analytics}</Card.Text>
+                            <Card.Text>Finance: {signups.breakdown.Finance}</Card.Text>
+                            <Card.Text>Timetable: {signups.breakdown.Timetable}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col md={3}>
+                    <Card>
+                        <Card.Body>
+                            <Card.Title>Total Revenue</Card.Title>
+                            <Card.Text>Total: {revenue.total}</Card.Text>
+                            <Card.Text>Analytics: {revenue.breakdown.Analytics}</Card.Text>
+                            <Card.Text>Finance: {revenue.breakdown.Finance}</Card.Text>
+                            <Card.Text>Timetable: {revenue.breakdown.Timetable}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col md={3}>
+                    <Card>
+                        <Card.Body>
+                            <Card.Title>Bounced Cheques</Card.Title>
+                            <Card.Text>{bouncedCheques}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <h2>Targets Visualization</h2>
+                    {/* Add your code for Targets Visualization here */}
+                    <PieChart width={400} height={400}>
+                        <Pie dataKey="value" data={[]} fill="#8884d8" />
+                        <Tooltip />
+                    </PieChart>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <h2>Signups Overview</h2>
+                    {/* Add your code for Signups Overview here */}
+                    <BarChart width={500} height={300} data={[]}>
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="pv" fill="#8884d8" />
+                        <Bar dataKey="uv" fill="#82ca9d" />
+                    </BarChart>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <h2>Upcoming Invoices</h2>
+                    <ul>
+                        {upcomingInvoices.map((invoice, index) => (
+                            <li key={index}>
+                                <div>{invoice.school}</div>
+                                <div>Amount Due: {invoice.amount}</div>
+                                <div>Due Date: {invoice.dueDate}</div>
+                                <div>Quick Actions: {/* Implement quick actions */}</div>
+                            </li>
+                        ))}
+                    </ul>
+                </Col>
+            </Row>
+        </Container>
+    );
 };
 
 export default Dashboard;
