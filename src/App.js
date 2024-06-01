@@ -4,13 +4,14 @@ import NavbarMenu from './components/NavbarMenu';
 import Dashboard from './components/Dashboard';
 import Schools from './components/Schools';
 import Home from './components/Home';
+import { Container } from 'react-bootstrap';
 import './App.css';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false); // Add menuOpen state
 
   return (
-    <Router>
+      <Router>
       <div className={`App ${menuOpen ? 'menu-open' : ''}`}> {/* Adjust class based on menuOpen state */}
         <header className="App-header">
           <NavbarMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} /> {/* Pass menuOpen state and setMenuOpen function */}

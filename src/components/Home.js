@@ -5,10 +5,9 @@ import './Home.css'; // Import custom styles for additional enhancements
 
 const HomePage = () => {
     return (
-        <Container fluid>
         <div className="homepage">
             <header className="header">
-                <Container>
+                <Container fluid className="px-0">
                     <Row className="align-items-center">
                         <Col md={6}>
                             <h1 className="heading">Welcome to our Modern Website</h1>
@@ -56,16 +55,15 @@ const HomePage = () => {
                         </Col>
                         <Col md={6}>
                             <ul className="social-links">
-                                <li><a href="/"><i className="fab fa-twitter"></i></a></li>
-                                <li><a href="/"><i className="fab fa-facebook"></i></a></li>
-                                <li><a href="/"><i className="fab fa-instagram"></i></a></li>
+                                <li><a href="#"><i className="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i className="fab fa-facebook"></i></a></li>
+                                <li><a href="#"><i className="fab fa-instagram"></i></a></li>
                             </ul>
                         </Col>
                     </Row>
                 </Container>
             </footer>
         </div>
-        </Container>
     );
 };
 
