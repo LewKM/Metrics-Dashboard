@@ -1,0 +1,87 @@
+.homepage {
+    font-family: 'Roboto', sans-serif;
+}
+
+.header {
+    padding: 100px 0;
+    background-color: #f8f9fa;
+}
+
+.heading {
+    font-size: 3rem;
+    color: #333;
+}
+
+.subheading {
+    font-size: 1.5rem;
+    color: #555;
+}
+
+.btn-lg {
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+.features {
+    padding: 80px 0;
+    background-color: #f0f0f0;
+}
+
+.feature {
+    text-align: center;
+    margin-bottom: 40px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature i {
+    font-size: 3rem;
+    color: #007bff;
+}
+
+.feature h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.footer {
+    padding: 40px 0;
+    background-color: #343a40;
+    color: #fff;
+}
+
+.footer p {
+    font-size: 1rem;
+}
+
+.social-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.social-links li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.social-links li:last-child {
+    margin-right: 0;
+}
+
+.social-links a {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.social-links a:hover {
+    color: #007bff;
+}
