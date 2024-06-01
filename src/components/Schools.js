@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+
+
 
 const Schools = () => {
     const [schools, setSchools] = useState([]);
@@ -23,7 +26,7 @@ const Schools = () => {
             <h1>Schools</h1>
             <Row>
                 {schools.map(school => (
-                    <Col key={school.id} md={4}>
+                    <Col key={school.id} md={3}>
                         <Card>
                             <Card.Body>
                                 <Card.Title>{school.name}</Card.Title>
@@ -31,6 +34,7 @@ const Schools = () => {
                                 <Card.Text>Product: {school.product}</Card.Text>
                                 <Card.Text>County: {school.county}</Card.Text>
                                 {/* Add more details as needed */}
+                                <Button variant="primary">Go somewhere</Button>
                             </Card.Body>
                         </Card>
                     </Col>

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavbarMenu from './components/NavbarMenu';
 import Dashboard from './components/Dashboard';
 import Schools from './components/Schools';
+import Home from './components/Home';
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <NavbarMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} /> {/* Pass menuOpen state and setMenuOpen function */}
           {/* Define routes for Dashboard and Schools */}
           <Routes>
+          <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/schools" element={<Schools />} />
           </Routes>
