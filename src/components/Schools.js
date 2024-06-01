@@ -126,15 +126,6 @@ const Schools = () => {
         }
     };
 
-    const handleFilterInvoices = (status) => {
-        if (status === 'All') {
-            setFilteredInvoices(invoices);
-        } else {
-            const filtered = invoices.filter(invoice => invoice.status === status);
-            setFilteredInvoices(filtered);
-        }
-    };
-
     const handleViewCollections = async (invoiceId) => {
         try {
             const collectionsResponse = await axios.get(`http://localhost:4000/collections?invoiceId=${invoiceId}`);
