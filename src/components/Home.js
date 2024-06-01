@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import './Home.css'; // Import custom styles for additional enhancements
 
 const HomePage = () => {
@@ -55,9 +55,9 @@ const HomePage = () => {
                         </Col>
                         <Col md={6}>
                             <ul className="social-links">
-                                <li><a href="#"><i className="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i className="fab fa-facebook"></i></a></li>
-                                <li><a href="#"><i className="fab fa-instagram"></i></a></li>
+                                <li><a href="/"><i className="fab fa-twitter"></i></a></li>
+                                <li><a href="/"><i className="fab fa-facebook"></i></a></li>
+                                <li><a href="/"><i className="fab fa-instagram"></i></a></li>
                             </ul>
                         </Col>
                     </Row>

@@ -4,7 +4,7 @@ import NavbarMenu from './components/NavbarMenu';
 import Dashboard from './components/Dashboard';
 import Schools from './components/Schools';
 import Home from './components/Home';
-import { Container } from 'react-bootstrap';
+// import { Container } from 'react-bootstrap';
 import './App.css';
 
 function App() {
