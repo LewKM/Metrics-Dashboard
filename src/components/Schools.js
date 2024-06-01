@@ -17,6 +17,8 @@ const Schools = () => {
         dueDate: ''
     });
     const [selectedInvoice, setSelectedInvoice] = useState(null);
+    const [collections, setCollections] = useState([]);
+    const [showCollectionsModal, setShowCollectionsModal] = useState(false);
 
     useEffect(() => {
         const fetchSchools = async () => {
@@ -133,6 +135,17 @@ const Schools = () => {
         }
     };
 
+    const handleViewCollections = async (invoiceId) => {
+        try {
+            const collectionsResponse = await axios.get(`http://localhost:4000/collections?invoiceId=${invoiceId}`);
+            setCollections(collectionsResponse.data);
+            setShowCollectionsModal(true);
+        } catch (error) {
+            console.error('Error fetching collections:', error);
+       
+        }
+    };
+
     return (
         <Container className="mt-5">
             <Col>
@@ -145,8 +158,7 @@ const Schools = () => {
                             <Card.Body>
                                 <Card.Title>{school.name}</Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted">{school.type}</Card.Subtitle>
-                                <Card.Text>Product: {
-                                    school.product}</Card.Text>
+                                <Card.Text>Product: {school.product}</Card.Text>
                                 <Card.Text>County: {school.county}</Card.Text>
                                 <Button variant="primary" onClick={() => handleSchoolSelect(school)}>View Details</Button>
                             </Card.Body>
@@ -173,6 +185,7 @@ const Schools = () => {
                                         <th>Creation Date</th>
                                         <th>Due Date</th>
                                         <th>Amount</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -185,8 +198,12 @@ const Schools = () => {
                                             <td>{invoice.dueDate}</td>
                                             <td>${invoice.amount}</td>
                                             <td>
+                                                <Badge variant={invoice.status === 'Paid' ? 'success' : 'danger'}>{invoice.status}</Badge>
+                                            </td>
+                                            <td>
                                                 <Button variant="info" size="sm" onClick={() => handleShowEditModal(invoice)}>Edit</Button>{' '}
-                                                <Button variant="danger" size="sm" onClick={() => handleShowDeleteModal(invoice)}>Delete</Button>
+                                                <Button variant="danger" size="sm" onClick={() => handleShowDeleteModal(invoice)}>Delete</Button>{' '}
+                                                <Button variant="secondary" size="sm" onClick={() => handleViewCollections(invoice.id)}>View Collections</Button>
                                             </td>
                                         </tr>
                                     ))}
@@ -273,6 +290,42 @@ const Schools = () => {
                     </Button>
                     <Button variant="danger" onClick={handleDeleteInvoice}>
                         Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* Collections Modal */}
+            <Modal show={showCollectionsModal} onHide={() => setShowCollectionsModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Collections</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Collection Number</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {collections.map((collection, index) => (
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{collection.collectionNumber}</td>
+                                    <td>{collection.date}</td>
+                                    <td>{collection.status}</td>
+                                    <td>${collection.amount}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowCollectionsModal(false)}>
+                        Close
                     </Button>
                 </Modal.Footer>
             </Modal>

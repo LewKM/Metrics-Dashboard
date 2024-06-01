@@ -1,13 +1,23 @@
 body {
+    font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .dashboard-heading {
     margin-bottom: 30px;
     text-align: center;
     font-weight: bold;
-    color: #000;
+    color: #333;
+    font-size: 2rem;
 }
 
 .school-card {
@@ -16,11 +26,24 @@ body {
     border: none;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 20px;
 }
 
 .school-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.school-card .card-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.school-card .card-subtitle {
+    font-size: 1rem;
+    color: #555;
 }
 
 .details-card {
@@ -28,18 +51,13 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
+    background-color: #fff;
 }
 
-.card-title {
+.details-card .card-title {
     font-weight: bold;
-}
-
-.card-subtitle {
-    font-size: 0.9rem;
-}
-
-.mb-4 {
-    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
 }
 
 .card-body {
@@ -66,6 +84,8 @@ body {
 
 .badge {
     font-size: 0.8rem;
+    border-radius: 10px;
+    padding: 5px 10px;
 }
 
 .list-group-item {
@@ -75,4 +95,51 @@ body {
 
 .modal-title {
     font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    justify-content: center;
+}
+
+.modal-footer .btn-secondary {
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.modal-footer .btn-primary {
+    border-radius: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.form-control {
+    border-radius: 20px;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+}
+
+.table th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1);
 }
