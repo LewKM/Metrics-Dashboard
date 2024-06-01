@@ -23,7 +23,7 @@ const Schools = () => {
 
     return (
         <Container style={{ marginTop: '50px' }}> {/* Add top margin to avoid overlap with Navbar */}
-            <h1>Schools</h1>
+            <h1 font-color="dark">Schools</h1>
             <Row>
                 {schools.map(school => (
                     <Col key={school.id} md={3}>
